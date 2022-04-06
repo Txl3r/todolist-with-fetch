@@ -7,6 +7,10 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
 	const [todoList, setTodolist] = useState([]);
 	const [listItem, setListitem] = useState("");
+	const [hardStrike, setHardstrike] = useState(true);
+	const ball = (t) => {
+		console.log("crossed out");
+	};
 	const line = (x) => {
 		const newList = todoList.filter((element, index) => index !== x);
 		setTodolist(newList);
@@ -88,6 +92,17 @@ const Home = () => {
 										line(index);
 									}}>
 									x
+								</a>
+								<div
+									className={
+										t === true ? " " : "crossed-line"
+									}></div>
+								<a
+									className="btn btn-danger"
+									onClick={() => {
+										ball(index);
+									}}>
+									strike
 								</a>
 							</li>
 						);
