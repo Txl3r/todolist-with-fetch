@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../../styles/index.css";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -7,10 +8,7 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
 	const [todoList, setTodolist] = useState([]);
 	const [listItem, setListitem] = useState("");
-	const [hardStrike, setHardstrike] = useState(true);
-	const ball = (t) => {
-		console.log("crossed out");
-	};
+
 	const line = (x) => {
 		const newList = todoList.filter((element, index) => index !== x);
 		setTodolist(newList);
@@ -55,7 +53,11 @@ const Home = () => {
 			.then((result) => console.log(result))
 			.catch((error) => console.log("error", error));
 	};
-
+	const completeTodo = (index) => {
+		const list = [...todoList];
+		list[index].done = !list[index].done;
+		setTodolist(list);
+	};
 	console.log(todoList);
 	return (
 		<div className="container">
@@ -85,24 +87,18 @@ const Home = () => {
 					todoList.map((element, index) => {
 						return (
 							<li key={index} className="list-group-item">
-								{element.label}
+								<div className={element.done ? "strike" : ""}>
+									{element.label}
+								</div>
+								<button onClick={() => completeTodo(index)}>
+									Strike
+								</button>
 								<a
 									className="btn btn-primary"
 									onClick={() => {
 										line(index);
 									}}>
 									x
-								</a>
-								<div
-									className={
-										t === true ? " " : "crossed-line"
-									}></div>
-								<a
-									className="btn btn-danger"
-									onClick={() => {
-										ball(index);
-									}}>
-									strike
 								</a>
 							</li>
 						);
